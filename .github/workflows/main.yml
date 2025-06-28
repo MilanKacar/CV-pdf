@@ -39,3 +39,19 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone target repo (CV)
+        run: |
+          git clone https://x-access-token:${{ secrets.update-cv }}@github.com/MilanKacar/CV.git target-repo
+
+      - name: Copy main.pdf to target path
+        run: |
+          mkdir -p target-repo/assets/img
+          cp main.pdf target-repo/assets/img/Milan_Kacar_CV.pdf
+
+      - name: Commit and push PDF to CV repo
+        run: |
+          cd target-repo
+          git add assets/img/Milan_Kacar_CV.pdf
+          git commit -m "Auto-update CV PDF from cv-pdf"
+          git push
