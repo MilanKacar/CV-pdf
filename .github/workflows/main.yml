@@ -42,14 +42,19 @@ jobs:
 
       # --- REPLACED CLONE STEP ---
       - name: Clone target repo (CV) using token
-        # This is a more robust way to clone in a GitHub Action
-        uses: actions/checkout@v4
-        with:
-          repository: MilanKacar/CV
-          path: target-repo
-          token: ${{ secrets.update-cv-token }}
-          # The token is passed as a parameter here, which is cleaner
-          # and less error-prone than embedding it in the URL.
+              uses: actions/checkout@v4
+              with:
+                repository: MilanKacar/CV
+                path: target-repo
+                # --- ADD THIS LINE ---
+                token: ${{ secrets.update-cv-token }}
+                # --- KEEP YOUR OTHER INPUTS BELOW ---
+                fetch-depth: 0 # Using 0 is better for later pushes
+                set-safe-directory: true
+                # You can remove the SSH-related inputs if you are using a token
+                # ssh-strict: true
+                # ssh-user: git
+                # ...
 
       - name: Commit and push PDF to CV repo
         run: |
