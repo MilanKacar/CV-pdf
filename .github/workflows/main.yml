@@ -1,42 +1,27 @@
-name: Build LaTeX PDF
+name: Build LaTeX CV with XeLaTeX
 
-on: [push]
+on:[push]
 
 jobs:
-  build-pdf:
-    name: Compile LaTeX to PDF
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Step 2: Set up TeX Live environment
-    - name: Install TeX Live and required packages
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra texlive-bibtex-extra biber
+    - name: Install Inkscape (for SVG to PDF conversion)
+      run: sudo apt-get update && sudo apt-get install -y inkscape
 
-    # Step 3: Compile LaTeX to PDF (First Pass)
-    - name: First LaTeX Compilation
-      run: xelatex -interaction=nonstopmode main.tex || true
 
-    # Step 4: Run Biber for Bibliography
-    - name: Run Biber
-      run: biber main || true
-
-    # Step 5: Compile LaTeX to PDF (Second Pass)
-    - name: Second LaTeX Compilation
-      run: xelatex -interaction=nonstopmode main.tex || true
-
-    # Step 6: Compile LaTeX to PDF (Final Pass)
-    - name: Final LaTeX Compilation
-      run: xelatex -interaction=nonstopmode main.tex || true
-
-    # Step 7: Upload the artifact
-    - name: Upload PDF
-      uses: actions/upload-artifact@v4
+    - name: Compile with XeLaTeX
+      uses: xu-cheng/latex-action@v2
       with:
-        name: main-pdf
+        root_file: main.tex
+        latexmk_use_xelatex: true
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@v3
+      with:
+        name: CV-PDF
         path: main.pdf
