@@ -15,20 +15,11 @@ jobs:
         with:
           name: PDF
           path: main.pdf
-
-      - name: Configure Git
+      - name: Commit and push compiled PDF to repo
         run: |
-          git config --global user.name "MilanKacar"
-          git config --global user.email "milankacar@live.com"
-
-      - name: Copy PDF to root (optional, or just commit from output/)
-        run: |
-          cp output/main.pdf main.pdf
-
-      - name: Commit and push compiled PDF
-        run: |
-          git add main.pdf
-          git commit -m "Add compiled PDF [skip ci]" || echo "No changes to commit"
+          cp output/main.pdf cv.pdf
+          git add cv.pdf
+          git commit -m "Add latest compiled CV PDF [skip ci]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
