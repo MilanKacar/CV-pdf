@@ -39,3 +39,15 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v3
+        with:
+            repository: CV
+            ref: 'master'
+            token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+      - name: setup git config
+        run: |
+          cp main.pdf Milan_Kacar_CV.pdf
+          git add Milan_Kacar_CV.pdf
+          git commit -m "Add latest compiled CV PDF [skip ci]" || echo "No changes to commit"
+          git push
