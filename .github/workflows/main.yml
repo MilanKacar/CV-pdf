@@ -1,20 +1,33 @@
 name: Build LaTeX document
+
 on: [push]
+
 jobs:
   build_latex:
     runs-on: ubuntu-latest
+
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Needed for pushing later
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
+
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: main.pdf
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
       - name: Commit and push compiled PDF to repo
         run: |
           cp main.pdf cv.pdf
