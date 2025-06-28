@@ -42,19 +42,19 @@ jobs:
 
       # --- REPLACED CLONE STEP ---
       - name: Clone target repo (CV) using token
-              uses: actions/checkout@v4
-              with:
-                repository: MilanKacar/CV
-                path: target-repo
-                # --- ADD THIS LINE ---
-                token: ${{ secrets.update-cv-token }}
-                # --- KEEP YOUR OTHER INPUTS BELOW ---
-                fetch-depth: 0 # Using 0 is better for later pushes
-                set-safe-directory: true
-                # You can remove the SSH-related inputs if you are using a token
-                # ssh-strict: true
-                # ssh-user: git
-                # ...
+        uses: actions/checkout@v4
+        with:
+          repository: MilanKacar/CV
+          path: target-repo
+          # --- ADD THIS LINE ---
+          token: ${{ secrets.update-cv-token }}
+          # --- KEEP YOUR OTHER INPUTS BELOW ---
+          fetch-depth: 0 # Using 0 is better for later pushes
+          set-safe-directory: true
+          # You can remove the SSH-related inputs if you are using a token
+          # ssh-strict: true
+          # ssh-user: git
+          # ...
 
       - name: Commit and push PDF to CV repo
         run: |
