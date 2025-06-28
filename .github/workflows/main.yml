@@ -44,17 +44,13 @@ jobs:
         run: |
           git clone https://x-access-token:${{ secrets.update-cv }}@github.com/MilanKacar/CV.git target-repo
 
-      - name: Copy main.pdf to target path
-        run: |
-          mkdir -p target-repo/assets/img
-          cp main.pdf target-repo/assets/img/Milan_Kacar_CV.pdf
-
       - name: Commit and push PDF to CV repo
         run: |
           cd target-repo
-          git config user.name "MilanKacar"
-          git config user.email "milankacar@live.com"
+          git config --global user.name "MilanKacar"
+          git config --global user.email "milankacar@live.com"
+          cp ../main.pdf assets/img/Milan_Kacar_CV.pdf
           git add assets/img/Milan_Kacar_CV.pdf
           git commit -m "Auto-update CV PDF from cv-pdf" || echo "No changes to commit"
           git remote set-url origin https://x-access-token:${{ secrets.update-cv }}@github.com/MilanKacar/CV.git
-          git push
+          git push origin master
