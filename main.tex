@@ -1,0 +1,208 @@
+%%%%%%%%%%%%%%%%%
+% This is an example CV created using altacv.cls (v1.1.4, 27 July 2018) written by
+% LianTze Lim (liantze@gmail.com), based on the
+% Cv created by BusinessInsider at http://www.businessinsider.my/a-sample-resume-for-marissa-mayer-2016-7/?r=US&IR=T
+%
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%%%%%%%%%%%%%%%
+
+%% If you want to use \orcid or the
+%% academicons icons, add "academicons"
+%% to the \documentclass options.
+%% Then compile with XeLaTeX or LuaLaTeX.
+% \documentclass[10pt,a4paper,academicons]{altacv}
+
+%% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
+% \documentclass[10pt,a4paper,normalphoto]{altacv}
+
+\documentclass[10pt,a4paper]{altacv}
+
+%% AltaCV uses the fontawesome and academicon fonts
+%% and packages.
+%% See texdoc.net/pkg/fontawecome and http://texdoc.net/pkg/academicons for full list of symbols.
+%% When using the "academicons" option,
+%% Compile with LuaLaTeX for best results. If you
+%% want to use XeLaTeX, you may need to install
+%% Academicons.ttf in your operating system's font %% folder.
+%% Programming symbols
+\newcommand{\Rlogo}{\includegraphics[height=1.8ex,keepaspectratio]{r-original.svg}}
+
+% Change the page layout if you need to
+\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1cm,bottom=1cm}
+
+% Change the font if you want to.
+
+% If using pdflatex:
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[default]{lato}
+\usepackage{hyperref}
+
+%%\usepackage{fontmfizz}
+
+
+% If using xelatex or lualatex:
+% \setmainfont{Lato}
+
+% Change the colours if you want to
+\definecolor{VividPurple}{HTML}{404251}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{heading}{VividPurple}
+\colorlet{accent}{VividPurple}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+% Change the bullets for itemize and rating marker
+% for \cvskill if you want to
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
+
+%%
+
+%% sample.bib contains your publications
+\addbibresource{sample.bib}
+
+\begin{document}
+\name{Milan Kacar}
+\tagline{AI Engineer | Data Scientist | Data Engineer}
+% Cropped to square from https://en.wikipedia.org/wiki/Marissa_Mayer#/media/File:Marissa_Mayer_May_2014_(cropped).jpg, CC-BY 2.0
+\photo{2.5cm}{profile.jpg}
+\personalinfo{%
+  % Not all of these are required!
+  % You can add your own with \printinfo{symbol}{detail}
+  \email{milankacar@live.com}
+  \phone{+43 677 614 375 95}
+  \location{Vienna , Austria}
+  \homepage{https://milankacar.github.io/}
+  \linebreak
+  \facebook{ Milan Kacar} \quad
+  \github{ @MilanKacar} \quad
+  \linkedin{ https://at.linkedin.com/in/milan-kacar} \quad
+  \instagram{@milan\_kacar}
+%   \github{github.com/mmayer} % I'm just making this up though.
+%   \orcid{orcid.org/0000-0000-0000-0000} % Obviously making this up too. If you want to use this field (and also other academicons symbols), add "academicons" option to \documentclass{altacv}
+}
+
+%% Make the header extend all the way to the right, if you want.
+\begin{fullwidth}
+\makecvheader
+\end{fullwidth}
+
+%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+\AtBeginEnvironment{itemize}{\small}
+
+%% Provide the file name containing the sidebar contents as an optional parameter to \cvsection.
+%% You can always just use \marginpar{...} if you do
+%% not need to align the top of the contents to any
+%% \cvsection title in the "main" bar.
+\cvsection[page1sidebar]{About me}
+AI-driven Software Engineer with over 5 years of experience in e-commerce and FinTech. Geodesy graduate from TU Graz with a strong foundation in mathematics, data analytics and academic research.
+
+
+\cvsection{Personal information}
+\cvdate{Date of birth}{01.09.1995}
+\cvbirthplace{ Birthplace}{Banja Luka, BA}
+\cvnationality{Citizenship}{Austrian}
+%\cvreligion{Religion}{Orthodox}
+
+\cvsection{Education}
+
+\cvevent{BSc Geomatics Engineering}{University of Technology, TU Graz}{2015 - 2019}{Graz, Austria}
+
+\cvevent{Master's Degree Programme - Geodesy}{University of Technology, TU Graz}{2019-2024}{Graz, Austria}
+
+\cvevent{Master's Degree Programme - Computer Science}{University of Technology, TU Graz}{2020-2024}{Graz, Austria}
+% \divider
+
+% \cvevent{Product Engineer}{Google}{23 June 1999 -- 2001}{Palo Alto, CA}
+
+% \begin{itemize}
+% \item Joined the company as employe \#20 and female employee \#1
+% \item Developed targeted advertisement in order to use user's search queries and show them related ads
+% \end{itemize}
+
+
+\cvsection{Work and Personal Projects}
+\begin{itemize}
+    \item \textbf{Data Integration \& ETL} – Design and manage scalable ETL pipelines to unify and validate data across diverse systems, supporting reliable analytics at Niceshops GmbH and Gateway Ventures.
+    
+    \item \textbf{Data Lakes \& Warehousing} – Spearheaded the development of a centralized data lake architecture at Gateway Ventures. Currently lead the maintenance and optimization of the Niceshops data warehouse, ensuring fast and secure access to critical business data.
+
+    \item \textbf{Business Analytics \& Forecasting} – Generate strategic insights by integrating data from GA4, Facebook, TikTok, and internal tools to monitor trends, forecast demand, and support executive decision-making.
+
+    \item \textbf{Dashboards \& Looker Enablement} – Build dynamic dashboards in Looker and other BI platforms to automate reporting for various departments. Completed advanced Looker training and now lead in-house workshops to empower teams with self-service analytics capabilities.
+
+    \item \textbf{AI Solutions for Business Optimization} – Develop AI-driven tools and predictive models to identify operational inefficiencies, improve product strategies, and drive measurable business outcomes across functions.
+
+    \item \textbf{Cross-Functional Data Consulting} – Collaborate closely with marketing, sales, logistics, and finance teams to deliver customized analytical solutions, bridging technical and business needs in a data analyst capacity.
+
+    \item \textbf{Anomaly Detection \& Pattern Recognition} – Apply statistical and ML techniques to detect anomalies, uncover hidden patterns, and optimize workflows in high-volume datasets.
+
+    \item \textbf{Technical Blog \& Thought Leadership} – Author a personal blog focused on programming, AI, mathematics, finance, and LeetCode problems, showcasing problem-solving skills and a passion for continuous learning.
+\end{itemize}
+
+
+
+
+\newpage
+\cvsection[page2sidebar]{Dissertation Work}
+\cvevent{BSc Thesis}{Database for cycling routes}{}{}
+\begin{itemize}
+\item Entity Relationship Diagram.
+\item Building the Database.
+\item Conversion from analog to digital maps.
+\end{itemize}
+
+\cvevent{MSc Thesis}{PV (Photovoltaic) panels detection from satellite images}{}{}
+\begin{itemize}
+\item Project uses AI (Artificial intelligence) and ML (Machine learning) as 
+a hybrid approach to detect panels. 
+\item Building an independent model to work on different datasets.
+\item Cloud computing
+\item YOLOv5
+%\divider
+%\divider
+%\divider
+\end{itemize}
+
+\cvsection{Work Experience}
+
+\cvevent{Survey Engineer}{GEODATA}{July 2019 - December 2020}{Semmering Basistunnel, Austria}
+\begin{itemize}
+Tunnel surveying | 3D Laser scanner measurements
+\end{itemize}
+
+
+\cvevent{Teaching Assistant}{TU Graz}{March 2021 - January 2022}{Graz, Austria}
+\begin{itemize}
+Integrated navigation | Sensor fusion | Indoor navigation
+\end{itemize}
+
+\cvevent{Software Engineer}{TU Graz}{Sep 2019 - January 2022}{Graz, Austria}
+\begin{itemize}
+Software Architect | Project Management | Automation | Data Analysis | ML Forecasting | Statistics | Automotive Battery and Electric Vehicle Testing
+\end{itemize}
+
+\cvevent{Data Scientist \& Data Engineer}{niceshops GmbH}{January 2021 - pending}{Vienna, Austria}
+\begin{itemize}
+Finances (all types of tasks) analysis | Data Engineering | Large scale data crawling  | Cloud computing | GCP | Looker | AI \& ML tasks | Courses inside the house / teaching (Looker) | Research about demand forecasting |
+\end{itemize}
+
+\cvevent{Data Engineer / TL}{Gateway Ventures GmbH}{August 2023 - pending}{Vienna, Austria}
+\begin{itemize}
+Startup Founding | Startup Valuation models | Pitch Deck Analyzer | Tinder for Investors/Startups | Data Lake construction | Data Mining | Data Scraping | Project Management | Investor matchmaking tool
+\end{itemize}
+
+
+
+\clearpage
+
+
+\end{document}
