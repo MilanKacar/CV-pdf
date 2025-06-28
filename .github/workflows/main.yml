@@ -16,19 +16,19 @@ jobs:
           name: PDF
           path: Milan_Kacar_CV.pdf
 
-      - name: Commit updated data
+      - name: Configure Git
         run: |
           git config --global user.name "MilanKacar"
           git config --global user.email "milankacar@live.com"
 
-          # Show git status for debugging
-          git status
+      - name: Copy PDF to root (optional, or just commit from output/)
+        run: |
+          cp output/main.pdf main.pdf
 
-          # Check for any changes in the repository
-          if [ -n "$(git status --porcelain)" ]; then
-            git add Milan_Kacar_CV.pdf
-            git commit -m "Update visit count"
-            git push
-          else
-            echo "No changes to commit"
-          fi
+      - name: Commit and push compiled PDF
+        run: |
+          git add main.pdf
+          git commit -m "Add compiled PDF [skip ci]" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
