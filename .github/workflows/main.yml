@@ -33,30 +33,9 @@ jobs:
 
       - name: Commit and push compiled PDF to this repo
         run: |
-          cp main.pdf milan_kacar_cv.pdf
-          git add milan_kacar_cv.pdf
+          cp main.pdf Milan_Kacar_CV.pdf
+          git add Milan_Kacar_CV.pdf
           git commit -m "Add latest compiled CV PDF [skip ci]" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # --- This step replaces all the previous cloning and manual pushing logic ---
-      - name: Push compiled PDF to CV repo
-        # Use a reliable Marketplace action for pushing files to another repo
-        uses: cp-git-action/push-to-another-repo-action@v1.0.0
-        with:
-          # The token for the target repository
-          github-token: ${{ secrets.update-cv-token }}
-          # The source file(s) to push (relative to the current workspace)
-          src: main.pdf
-          # The destination repository
-          dst: MilanKacar/CV
-          # The destination path and filename in the target repo
-          dst-path: assets/img/Milan_Kacar_CV.pdf
-          # The target branch
-          branch: master
-          # The commit message
-          commit-message: "Auto-update CV PDF from cv-pdf"
-          # User info for the commit
-          user-name: MilanKacar
-          user-email: milankacar@live.com
