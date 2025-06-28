@@ -54,6 +54,11 @@ jobs:
       - name: Commit and push PDF to CV repo
         run: |
           cd target-repo
+          
+          # This command removes the conflicting HTTP headers set by the runner
+          # It fixes authentication issues when pushing to a different repo
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
+          
           git config --global user.name "MilanKacar"
           git config --global user.email "milankacar@live.com"
           cp ../main.pdf assets/img/Milan_Kacar_CV.pdf
