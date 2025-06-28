@@ -40,34 +40,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- REPLACED CLONE STEP ---
-      - name: Clone target repo (CV) using token
-        uses: actions/checkout@v4
+      # --- This step replaces all the previous cloning and manual pushing logic ---
+      - name: Push compiled PDF to CV repo
+        # Use a reliable Marketplace action for pushing files to another repo
+        uses: cp-git-action/push-to-another-repo-action@v1.0.0
         with:
-          repository: MilanKacar/CV
-          path: target-repo
-          # --- ADD THIS LINE ---
-          token: ${{ secrets.update-cv-token }}
-          # --- KEEP YOUR OTHER INPUTS BELOW ---
-          fetch-depth: 0 # Using 0 is better for later pushes
-          set-safe-directory: true
-          # You can remove the SSH-related inputs if you are using a token
-          # ssh-strict: true
-          # ssh-user: git
-          # ...
-
-      - name: Commit and push PDF to CV repo
-        run: |
-          cd target-repo
-          
-          # This command removes the conflicting HTTP headers set by the runner
-          # It fixes authentication issues when pushing to a different repo
-          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
-          
-          git config --global user.name "MilanKacar"
-          git config --global user.email "milankacar@live.com"
-          cp ../main.pdf assets/img/Milan_Kacar_CV.pdf
-          git add assets/img/Milan_Kacar_CV.pdf
-          git commit -m "Auto-update CV PDF from cv-pdf" || echo "No changes to commit"
-          # Push to the origin, which is now authenticated by the checkout action
-          git push origin master
+          # The token for the target repository
+          github-token: ${{ secrets.update-cv-token }}
+          # The source file(s) to push (relative to the current workspace)
+          src: main.pdf
+          # The destination repository
+          dst: MilanKacar/CV
+          # The destination path and filename in the target repo
+          dst-path: assets/img/Milan_Kacar_CV.pdf
+          # The target branch
+          branch: master
+          # The commit message
+          commit-message: "Auto-update CV PDF from cv-pdf"
+          # User info for the commit
+          user-name: MilanKacar
+          user-email: milankacar@live.com
