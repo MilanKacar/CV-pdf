@@ -1,23 +1,42 @@
-name: LateX to PDF
+name: Build LaTeX PDF
 
 on: [push]
 
 jobs:
-  build_latex:
+  build-pdf:
+    name: Compile LaTeX to PDF
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-      - name: latex2pdf
-        id: compile-latex-document
-        uses: thomas-chauvet/latex2pdf-action@1.1.0
-        with:
-          output_dir: output
-          main_latex_file: main.tex
-          ctan_packages: amsmath amsfonts lua-uni-algos
-      - name: Upload PDF to the workflow tab
-        id: upload-workflow-tab
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: output
-          path: output/cv.pdf
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up TeX Live environment
+    - name: Install TeX Live and required packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra texlive-bibtex-extra biber
+
+    # Step 3: Compile LaTeX to PDF (First Pass)
+    - name: First LaTeX Compilation
+      run: xelatex -interaction=nonstopmode main.tex || true
+
+    # Step 4: Run Biber for Bibliography
+    - name: Run Biber
+      run: biber main || true
+
+    # Step 5: Compile LaTeX to PDF (Second Pass)
+    - name: Second LaTeX Compilation
+      run: xelatex -interaction=nonstopmode main.tex || true
+
+    # Step 6: Compile LaTeX to PDF (Final Pass)
+    - name: Final LaTeX Compilation
+      run: xelatex -interaction=nonstopmode main.tex || true
+
+    # Step 7: Upload the artifact
+    - name: Upload PDF
+      uses: actions/upload-artifact@v4
+      with:
+        name: main-pdf
+        path: main.pdf
