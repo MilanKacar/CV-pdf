@@ -52,5 +52,5 @@ jobs:
           cp ../main.pdf assets/img/Milan_Kacar_CV.pdf
           git add assets/img/Milan_Kacar_CV.pdf
           git commit -m "Auto-update CV PDF from cv-pdf" || echo "No changes to commit"
-          git remote set-url origin https://x-access-token:${{ secrets.update-cv }}@github.com/MilanKacar/CV.git
+          git remote set-url origin https://x-access-token:${{ secrets.update-cv-token }}@github.com/MilanKacar/CV.git
           git push origin master
