@@ -26,7 +26,7 @@ jobs:
           name: PDF
           path: main.pdf
 
-      - name: Configure Git
+      - name: Configure Git for this repo
         run: |
           git config --global user.name "MilanKacar"
           git config --global user.email "milankacar@live.com"
@@ -40,9 +40,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clone target repo (CV)
-        run: |
-          git clone https://x-access-token:${{ secrets.update-cv-token }}@github.com/MilanKacar/CV.git target-repo
+      # --- REPLACED CLONE STEP ---
+      - name: Clone target repo (CV) using token
+        # This is a more robust way to clone in a GitHub Action
+        uses: actions/checkout@v4
+        with:
+          repository: MilanKacar/CV
+          path: target-repo
+          token: ${{ secrets.update-cv-token }}
+          # The token is passed as a parameter here, which is cleaner
+          # and less error-prone than embedding it in the URL.
 
       - name: Commit and push PDF to CV repo
         run: |
@@ -52,5 +59,5 @@ jobs:
           cp ../main.pdf assets/img/Milan_Kacar_CV.pdf
           git add assets/img/Milan_Kacar_CV.pdf
           git commit -m "Auto-update CV PDF from cv-pdf" || echo "No changes to commit"
-          git remote set-url origin https://x-access-token:${{ secrets.update-cv-token }}@github.com/MilanKacar/CV.git
+          # Push to the origin, which is now authenticated by the checkout action
           git push origin master
