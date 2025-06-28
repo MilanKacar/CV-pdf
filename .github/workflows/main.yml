@@ -45,6 +45,9 @@ jobs:
             repository: MilanKacar/CV
             ref: 'master'
             token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+          
       - name: setup git config
         run: |
           cp main.pdf Milan_Kacar_CV.pdf
