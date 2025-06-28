@@ -17,7 +17,7 @@ jobs:
           path: main.pdf
       - name: Commit and push compiled PDF to repo
         run: |
-          cp output/main.pdf cv.pdf
+          cp main.pdf cv.pdf
           git add cv.pdf
           git commit -m "Add latest compiled CV PDF [skip ci]" || echo "No changes to commit"
           git push
