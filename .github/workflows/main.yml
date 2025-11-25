@@ -1,41 +1,50 @@
 name: Build LaTeX document
-
 on: [push]
-
 permissions:
   contents: write
-
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Needed for pushing later
-
+          fetch-depth: 0
+      
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-
+      
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: main.pdf
-
-      - name: Configure Git for this repo
+      
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: MilanKacar/CV  # Change to your target repo
+          path: target-repo
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      
+      - name: Copy PDF to target repository
         run: |
-          git config --global user.name "MilanKacar"
-          git config --global user.email "milankacar@live.com"
-
-      - name: Commit and push compiled PDF to this repo
+          mkdir -p target-repo/pdfs
+          cp main.pdf target-repo/pdfs/Milan_Kacar_CV.pdf
+      
+      - name: Configure Git for target repo
         run: |
-          cp main.pdf Milan_Kacar_CV.pdf
-          git add Milan_Kacar_CV.pdf
-          git commit -m "Add latest compiled CV PDF [skip ci]" || echo "No changes to commit"
+          cd target-repo
+          git config user.name "MilanKacar"
+          git config user.email "milankacar@live.com"
+      
+      - name: Commit and push to target repository
+        run: |
+          cd target-repo
+          git add pdfs/Milan_Kacar_CV.pdf
+          git commit -m "Update CV PDF from LaTeX build [skip ci]" || echo "No changes to commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
